@@ -31,7 +31,7 @@ Refer to the documentation above for implementation details.
 ## Run
 
 ```bash
-go build -o ./bin/serve -i ./cmd/serve
+go build -o ./bin/serve ./cmd/serve
 ./bin/serve
 ```
 
