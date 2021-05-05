@@ -5,6 +5,7 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
+	"github.com/go-chi/render"
 )
 
 // Router chi mux router struct
@@ -18,6 +19,8 @@ func NewRouter(logger *Logger) *Router {
 	r.Use(middleware.Recoverer)
 	r.Use(middleware.StripSlashes)
 	r.Use(middleware.RequestID)
+	r.Use(middleware.URLFormat)
+	r.Use(render.SetContentType(render.ContentTypeJSON))
 
 	// Use the default compressor settings (good mix of speed vs. size)
 	compressor := middleware.NewCompressor(flate.DefaultCompression)

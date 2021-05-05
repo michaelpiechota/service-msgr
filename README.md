@@ -41,7 +41,7 @@ go build -o ./bin/serve ./cmd/serve
 | name                     | description                                                     | type    | optional | default     |
 |--------------------------|-----------------------------------------------------------------|---------|----------|-------------|
 | PORT                     | The server port                                                 | string  | yes      | 3000        |
-| LOGGER                   | The logger type (DEVELOPMENT, PRODUCTION)                       | string  | yes      | DEVELOPMENT |
+| LOGGER                   | The logger type (TEST, DEVELOPMENT)                             | string  | yes      | DEVELOPMENT |
 | ENV_FILE                 | location of the .env file                                       | string  | yes      | .env        |
 | HEALTH_CHECK_ENDPOINT    | Endpoint to send a GET requeset for the health of service       | string  | yes      | /healthz    |
 | READY_CHECK_ENDPOINT     | Endpoint to send a GET requeset for the services ready check    | string  | yes      | /readyz     |
