@@ -46,7 +46,9 @@ make build
 kill -9 $(lsof -i:3000 -t) 2> /dev/null
 ```
 
-## Notable Current Behavior
+## Notes
+* app entry point is cmd/serve/main.go
+* The "database" tables and functions are mocked in /messenger/db.go
 * Currently, the GET /messages/{userID} only supports returning 1 entry. See TODO section.
 * Limits of 100 messages or all messages in last 30 days have not been implemented for either global GET or {userID} GET endpoints.
 
@@ -55,6 +57,7 @@ kill -9 $(lsof -i:3000 -t) 2> /dev/null
 * Modify GET endpoint to return a slice of messages per userid. 
 * Add 30 days/100 messages requirement logic to API endpoints. Maybe within Paginate func?
 * Implement queues!?
+* Implement a real DB!
 * Finish docker-compose for ease of use
 
 # API (Current State)
