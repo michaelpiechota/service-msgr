@@ -6,7 +6,6 @@ import (
 	"github.com/spf13/viper"
 )
 
-// Config represents a system configuration.
 type Config struct {
 	*viper.Viper
 }
@@ -15,7 +14,6 @@ const configPath = "."
 const configType = "env"
 const defaultConfigName = ".env.template"
 
-// NewConfig returns a new config.
 func NewConfig(configFileName string) *Config {
 	if configFileName == "" {
 		configFileName = defaultConfigName

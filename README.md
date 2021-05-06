@@ -8,11 +8,7 @@ A simple messenger API.
 
 Install Go: https://golang.org/doc/install
 
-Install golangci-lint: https://github.com/golangci/golangci-lint
-
 ## Features
-
-This template includes:
 
 - HTTP Server
 - Configuration file imports
@@ -21,18 +17,21 @@ This template includes:
 - Graceful shutdown
 
 The following third-party packages are used:
-- [github.com/spf13/viper](https://github.com/spf13/viper) (Configuration)
-- [github.com/go-chi/chi](https://github.com/go-chi/chi) (Routing and middleware)
-- [github.com/uber-go/zap](https://github.com/uber-go/zap) (Logging)
-- [github.com/InVisionApp/go-health](https://github.com/InVisionApp/go-health) (Health checking)
-
-Refer to the documentation above for implementation details.
+- [github.com/spf13/viper](https://github.com/spf13/viper) (config)
+- [github.com/go-chi/chi](https://github.com/go-chi/chi) (routing and middleware) (v5)
+- [github.com/uber-go/zap](https://github.com/uber-go/zap) (structured logging)
+- [github.com/InVisionApp/go-health](https://github.com/InVisionApp/go-health) (health checking)
 
 ## Run
 
 ```bash
-go build -o ./bin/serve ./cmd/serve
+make build
 ./bin/serve
+```
+
+## Clear Port (if needed)
+```bash
+kill -9 $(lsof -i:3000 -t) 2> /dev/null
 ```
 
 ## Environment Variables
@@ -41,7 +40,7 @@ go build -o ./bin/serve ./cmd/serve
 | name                     | description                                                     | type    | optional | default     |
 |--------------------------|-----------------------------------------------------------------|---------|----------|-------------|
 | PORT                     | The server port                                                 | string  | yes      | 3000        |
-| LOGGER                   | The logger type (DEVELOPMENT, PRODUCTION)                       | string  | yes      | DEVELOPMENT |
+| LOGGER                   | The logger type (TEST, DEVELOPMENT)                             | string  | yes      | DEVELOPMENT |
 | ENV_FILE                 | location of the .env file                                       | string  | yes      | .env        |
 | HEALTH_CHECK_ENDPOINT    | Endpoint to send a GET requeset for the health of service       | string  | yes      | /healthz    |
 | READY_CHECK_ENDPOINT     | Endpoint to send a GET requeset for the services ready check    | string  | yes      | /readyz     |
@@ -52,14 +51,3 @@ go build -o ./bin/serve ./cmd/serve
 ```bash
 go test ./...
 ```
-
-## Linter
-
-The Product Service uses [golangci-lint](https://github.com/golangci/golangci-lint) to lint the project files. It runs any time a change is pushed to the remote repository.
-
-To run:
-```bash
-make lint
-```
-
-The output will list any issues that must be addressed.

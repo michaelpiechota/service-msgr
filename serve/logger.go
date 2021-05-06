@@ -14,13 +14,18 @@ type Logger struct {
 	*zap.Logger
 }
 
+type AppLogger interface {
+	Error(msg string, fields ...zap.Field)
+	Info(msg string, fields ...zap.Field)
+	Debug(msg string, fields ...zap.Field)
+	Flush()
+}
+
 const (
 	// LoggerTypeTest test log level
 	LoggerTypeTest = "TEST"
 	// LoggerTypeDevelopment development log level
 	LoggerTypeDevelopment = "DEVELOPMENT"
-	// LoggerTypeProduction production log level
-	LoggerTypeProduction = "PRODUCTION"
 )
 
 // NewLogger creates a new Chi logger with Zap. Will create the log level based on the parameter sent
@@ -29,8 +34,6 @@ func NewLogger(loggerType string) *Logger {
 	var err error
 
 	switch loggerType {
-	case LoggerTypeProduction:
-		logger, err = zap.NewProduction()
 	case LoggerTypeTest:
 		logger = zap.NewNop()
 	default:
