@@ -61,12 +61,9 @@ func DeleteMessage(w http.ResponseWriter, r *http.Request) {
 	render.Render(w, r, NewMessageResponse(message))
 }
 
-// paginate is a stub, but very possible to implement middleware logic
-// to handle the request params for handling a paginated request.
+// insert 30 days/100 limit for messages logic here
 func Paginate(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		// just a stub.. some ideas are to look at URL query params for something like
-		// the page number, or the limit, and send a query cursor down the chain
 		next.ServeHTTP(w, r)
 	})
 }
@@ -93,7 +90,6 @@ type MessageRequest struct {
 	*Message
 	User        *UserPayload `json:"user,omitempty"`
 	ProtectedID string       `json:"id"`
-	//UserID      int64        `json:"user_id"`
 }
 
 func (a *MessageRequest) Bind(r *http.Request) error {
@@ -102,7 +98,6 @@ func (a *MessageRequest) Bind(r *http.Request) error {
 		return errors.New("missing required Message fields.")
 	}
 
-	//a.UserID = a.Message.UserID
 	a.ProtectedID = ""
 	a.Message.Message = strings.ToLower(a.Message.Message)
 	return nil
