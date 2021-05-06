@@ -15,7 +15,8 @@ func MessageCtx(next http.Handler) http.Handler {
 		var err error
 
 		if userID := chi.URLParam(r, "userID"); userID != "" {
-			message, err = dbGetMessage(userID)
+			uid, _ := strconv.Atoi(userID)
+			message, err = dbGetMessage(uid)
 		} else {
 			render.Render(w, r, ErrNotFound)
 			return
