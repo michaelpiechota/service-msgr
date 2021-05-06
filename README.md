@@ -29,6 +29,11 @@ make build
 ./bin/serve
 ```
 
+## Clear Port (if needed)
+```bash
+kill -9 $(lsof -i:3000 -t) 2> /dev/null
+```
+
 ## Environment Variables
 #### Runtime
 

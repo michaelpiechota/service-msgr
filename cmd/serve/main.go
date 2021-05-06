@@ -1,14 +1,12 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 	"os"
 	"path"
 
 	health "github.com/InVisionApp/go-health/v2"
 	"github.com/go-chi/chi/v5"
-	"github.com/go-chi/docgen"
 	"github.com/michaelpiechota/service-msgr/messenger"
 	"github.com/michaelpiechota/service-msgr/serve"
 	"go.uber.org/zap"
@@ -36,28 +34,24 @@ func main() {
 	// set routes
 	r.Route("/messages", func(r chi.Router) {
 		r.With(messenger.Paginate).Get("/", messenger.ListMessages)
-		r.Post("/", messenger.CreateMessage) // POST /messages/{userID}
-		// get all messages from all senders limited to last 100 messages
+		// recent messages can be requested from all senders - with a limit of 100
+		// messages or all messages in last 30 days.
 		r.Get("/search", messenger.SearchMessages) // GET /messages/search
 
 		r.Route("/{userID}", func(r chi.Router) {
-			r.Use(messenger.MessageCtx)            // use request context
+			r.Use(messenger.MessageCtx) // use request context
+			// recent messages can be requested for a recipient from a specific sender
+			// with a limit of 100 messages or all messages in last 30 days.
 			r.Get("/", messenger.GetMessage)       // GET /messages/{userID}
 			r.Delete("/", messenger.DeleteMessage) // DELETE /messages/{userID}
 		})
 
-	})
+		r.Route("/create/{userID}", func(r chi.Router) {
+			r.Use(messenger.NewMessageCtx)       // use request context
+			r.Post("/", messenger.CreateMessage) // POST /messages/{userID} where {userID} is the recipient's ID
+		})
 
-	// flag to generate API Router documentation in json format
-	var printRoutes = flag.Bool("printRoutes", false, "Generate Router Documenation")
-	// generate JSON doc with route info
-	if *printRoutes {
-		fmt.Println(docgen.MarkdownRoutesDoc(r, docgen.MarkdownOpts{
-			ProjectPath: "github.com/service-msgr",
-			Intro:       "Generated REST API Docs",
-		}))
-		return
-	}
+	})
 
 	// start http server
 	server := serve.NewServer(

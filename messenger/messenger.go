@@ -20,8 +20,7 @@ func SearchMessages(w http.ResponseWriter, r *http.Request) {
 }
 
 func CreateMessage(w http.ResponseWriter, r *http.Request) {
-	//messageCtx := r.Context().Value("message").(*Message)
-	//recipientID := messageCtx.UserID
+	u := r.Context().Value("user").(User)
 
 	data := &MessageRequest{}
 	if err := render.Bind(r, data); err != nil {
@@ -30,7 +29,8 @@ func CreateMessage(w http.ResponseWriter, r *http.Request) {
 	}
 
 	message := data.Message
-	dbNewMessage(message)
+
+	dbNewMessage(message, u.ID)
 
 	render.Status(r, http.StatusCreated)
 	render.Render(w, r, NewMessageResponse(message))

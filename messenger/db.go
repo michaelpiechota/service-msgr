@@ -30,8 +30,9 @@ var users = []*User{
 }
 
 // *************** helper funcs for the mock db ******************
-func dbNewMessage(message *Message) (string, error) {
+func dbNewMessage(message *Message, uID int) (string, error) {
 	message.ID = fmt.Sprintf("%d", rand.Intn(100)+10)
+	message.UserID = uID
 	messages = append(messages, message)
 	return message.ID, nil
 }
@@ -55,7 +56,7 @@ func dbRemoveMessage(id string) (*Message, error) {
 	return nil, errors.New("message not found.")
 }
 
-func dbGetUser(id int64) (*User, error) {
+func dbGetUser(id int) (*User, error) {
 	for _, u := range users {
 		if u.ID == id {
 			return u, nil

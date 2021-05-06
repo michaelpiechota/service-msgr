@@ -3,12 +3,12 @@ package messenger
 import (
 	"context"
 	"net/http"
+	"strconv"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/render"
 )
 
-// MessageCtx is used to load an Message object from the URL parameters
 func MessageCtx(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		var message *Message
@@ -26,6 +26,19 @@ func MessageCtx(next http.Handler) http.Handler {
 		}
 
 		ctx := context.WithValue(r.Context(), "message", message)
+		next.ServeHTTP(w, r.WithContext(ctx))
+	})
+}
+
+func NewMessageCtx(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		var user User
+
+		if userID := chi.URLParam(r, "userID"); userID != "" {
+			user.ID, _ = strconv.Atoi(userID)
+		}
+
+		ctx := context.WithValue(r.Context(), "user", user)
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }
