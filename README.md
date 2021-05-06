@@ -8,8 +8,6 @@ A simple messenger API.
 
 Install Go: https://golang.org/doc/install
 
-Install golangci-lint: https://github.com/golangci/golangci-lint
-
 ## Features
 
 - HTTP Server
