@@ -37,7 +37,7 @@ The following third-party packages are used:
 ## Run
 
 ```bash
-make build
+make all
 ./bin/serve
 ```
 
