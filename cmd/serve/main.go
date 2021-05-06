@@ -34,14 +34,10 @@ func main() {
 	// set routes
 	r.Route("/messages", func(r chi.Router) {
 		r.With(messenger.Paginate).Get("/", messenger.ListMessages)
-		// recent messages can be requested from all senders - with a limit of 100
-		// messages or all messages in last 30 days.
 		r.Get("/search", messenger.SearchMessages) // GET /messages/search
 
 		r.Route("/{userID}", func(r chi.Router) {
-			r.Use(messenger.MessageCtx) // use request context
-			// recent messages can be requested for a recipient from a specific sender
-			// with a limit of 100 messages or all messages in last 30 days.
+			r.Use(messenger.MessageCtx)            // use request context
 			r.Get("/", messenger.GetMessage)       // GET /messages/{userID}
 			r.Delete("/", messenger.DeleteMessage) // DELETE /messages/{userID}
 		})
