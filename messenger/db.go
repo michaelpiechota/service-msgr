@@ -38,9 +38,9 @@ func dbNewMessage(message *Message, uID int) (string, error) {
 	return message.ID, nil
 }
 
-func dbGetMessage(id string) (*Message, error) {
+func dbGetMessage(id int) (*Message, error) {
 	for _, a := range messages {
-		if a.ID == id {
+		if a.UserID == id {
 			return a, nil
 		}
 	}
