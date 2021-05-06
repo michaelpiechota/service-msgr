@@ -12,8 +12,6 @@ Install golangci-lint: https://github.com/golangci/golangci-lint
 
 ## Features
 
-This template includes:
-
 - HTTP Server
 - Configuration file imports
 - Request logging
@@ -21,17 +19,15 @@ This template includes:
 - Graceful shutdown
 
 The following third-party packages are used:
-- [github.com/spf13/viper](https://github.com/spf13/viper) (Configuration)
-- [github.com/go-chi/chi](https://github.com/go-chi/chi) (Routing and middleware)
-- [github.com/uber-go/zap](https://github.com/uber-go/zap) (Logging)
-- [github.com/InVisionApp/go-health](https://github.com/InVisionApp/go-health) (Health checking)
-
-Refer to the documentation above for implementation details.
+- [github.com/spf13/viper](https://github.com/spf13/viper) (config)
+- [github.com/go-chi/chi](https://github.com/go-chi/chi) (routing and middleware) (v5)
+- [github.com/uber-go/zap](https://github.com/uber-go/zap) (structured logging)
+- [github.com/InVisionApp/go-health](https://github.com/InVisionApp/go-health) (health checking)
 
 ## Run
 
 ```bash
-go build -o ./bin/serve ./cmd/serve
+make build
 ./bin/serve
 ```
 
@@ -52,14 +48,3 @@ go build -o ./bin/serve ./cmd/serve
 ```bash
 go test ./...
 ```
-
-## Linter
-
-The Product Service uses [golangci-lint](https://github.com/golangci/golangci-lint) to lint the project files. It runs any time a change is pushed to the remote repository.
-
-To run:
-```bash
-make lint
-```
-
-The output will list any issues that must be addressed.
