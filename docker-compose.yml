@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  service-msgr:
+    container_name: service-msgr
+    env_file:
+      - .env
+    build:
+      dockerfile: ./Dockerfile
+      context: .
+    volumes:
+      - .:/app
+    ports:
+      - "${PORT}:${PORT}"
+    working_dir: /app
