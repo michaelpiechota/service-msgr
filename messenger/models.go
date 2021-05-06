@@ -1,5 +1,7 @@
 package messenger
 
+import "time"
+
 // User data model
 type User struct {
 	ID   int    `json:"id"`
@@ -8,7 +10,8 @@ type User struct {
 
 // Message data model
 type Message struct {
-	ID      string `json:"id"`
-	UserID  int    `json:"user_id"`
-	Message string `json:"message"`
+	ID      string    `json:"id"`
+	UserID  int       `json:"user_id"`
+	Message string    `json:"message"`
+	Date    time.Time `json:"date"`
 }

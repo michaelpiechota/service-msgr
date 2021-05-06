@@ -4,20 +4,21 @@ import (
 	"errors"
 	"fmt"
 	"math/rand"
+	"time"
 )
 
 // mock db message table
 var messages = []*Message{
-	{ID: "1", UserID: 100, Message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."},
-	{ID: "2", UserID: 100, Message: "Gravida dictum fusce ut placerat."},
-	{ID: "3", UserID: 100, Message: "Aliquam etiam erat velit scelerisque in. Eget magna fermentum iaculis eu non diam."},
-	{ID: "4", UserID: 200, Message: "Orci eu lobortis elementum nibh tellus molestie nunc non blandit."},
-	{ID: "5", UserID: 300, Message: "Id donec ultrices tincidunt arcu non. Suspendisse potenti nullam ac tortor vitae."},
-	{ID: "6", UserID: 300, Message: "Mi sit amet mauris commodo quis."},
-	{ID: "7", UserID: 300, Message: "Lacus sed turpis tincidunt id aliquet."},
-	{ID: "8", UserID: 400, Message: "Mi proin sed libero enim sed."},
-	{ID: "9", UserID: 500, Message: "Venenatis urna cursus eget nunc."},
-	{ID: "10", UserID: 500, Message: "LOL Latin :)"},
+	{ID: "1", UserID: 100, Message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", Date: time.Unix(1530688169, 0).Add(time.Hour * 1)},
+	{ID: "2", UserID: 100, Message: "Gravida dictum fusce ut placerat.", Date: time.Unix(1530688169, 0).Add(time.Hour * 792)},
+	{ID: "3", UserID: 100, Message: "Aliquam etiam erat velit scelerisque in. Eget magna fermentum iaculis eu non diam.", Date: time.Unix(1530688169, 0).Add(time.Hour * 360)},
+	{ID: "4", UserID: 200, Message: "Orci eu lobortis elementum nibh tellus molestie nunc non blandit.", Date: time.Unix(1530688169, 0)},
+	{ID: "5", UserID: 300, Message: "Id donec ultrices tincidunt arcu non. Suspendisse potenti nullam ac tortor vitae.", Date: time.Unix(1530688169, 0).Add(time.Hour * 1)},
+	{ID: "6", UserID: 300, Message: "Mi sit amet mauris commodo quis.", Date: time.Unix(1530688169, 0).Add(time.Hour * 100)},
+	{ID: "7", UserID: 300, Message: "Lacus sed turpis tincidunt id aliquet.", Date: time.Unix(1530688169, 0).Add(time.Hour * 1000)},
+	{ID: "8", UserID: 400, Message: "Mi proin sed libero enim sed.", Date: time.Unix(1530688169, 0)},
+	{ID: "9", UserID: 500, Message: "Venenatis urna cursus eget nunc.", Date: time.Unix(1530688169, 0).Add(time.Minute * 30)},
+	{ID: "10", UserID: 500, Message: "LOL Latin :)", Date: time.Unix(1530688169, 0).Add(time.Hour * 10)},
 }
 
 // mock db user table

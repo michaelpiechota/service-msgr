@@ -110,8 +110,7 @@ func (a *MessageRequest) Bind(r *http.Request) error {
 
 type MessageResponse struct {
 	*Message
-	User    *UserPayload `json:"user,omitempty"`
-	Elapsed int64        `json:"elapsed"`
+	User *UserPayload `json:"user,omitempty"`
 }
 
 func NewMessageResponse(message *Message) *MessageResponse {
@@ -127,7 +126,6 @@ func NewMessageResponse(message *Message) *MessageResponse {
 }
 
 func (rd *MessageResponse) Render(w http.ResponseWriter, r *http.Request) error {
-	rd.Elapsed = 10
 	return nil
 }
 
